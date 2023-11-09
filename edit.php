@@ -68,7 +68,7 @@ $statement->bindValue(':editId', $id, PDO::PARAM_INT);
 $statement->execute();
 $bookEdit = $statement->fetchAll(PDO::FETCH_ASSOC);?>
 
-<h2>Modification of the book <?php echo $bookEdit[0]['title'] ?> </h2>
+<h2>Book Modification <?php echo $bookEdit[0]['title'] ?> </h2>
 </br>
 <form method='post' style='margin-left:3em';>
     <strong>Title</strong>

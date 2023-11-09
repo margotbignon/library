@@ -2,9 +2,8 @@
 include "header.php";
 $pdo=connect_bd();
 ?>
-
-<h2>Books list</h2>
 <p style='margin-left:7em; margin-bottom:-2em; font-weight:bold;'><a href='shop.php'>Shop</a></p><br/><br/>
+<h2>Books list</h2>
 <p style='margin-left:7em; margin-bottom:-2em; font-weight:bold;'><a href='add.php'>Add a book</a></p><br/><br/>
 <p style='margin-left:7em; font-weight:bold;'>Search a book</p>
 <form method='post' style='margin-left:7em ;'>

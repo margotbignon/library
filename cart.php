@@ -35,10 +35,17 @@ $books = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
-<table style='margin-left:3em; width:40%; text-align:center'>
-<th>Titre</th>
-    <th>Prix</th>
+
     
+
+<?php
+    if (count($_SESSION['panier']['id_books']) < 1) {
+        echo "Your cart is empty<br/><br/>";
+    } else {
+?>
+<table style='margin-left:3em; width:40%; text-align:center'>
+<th>Title</th>
+    <th>Price</th>
 <?php 
     if ($statement->rowCount() > 0) {
         for ($i = 0; $i < count($_SESSION['panier']['id_books']); $i++) {
@@ -55,7 +62,7 @@ $books = $statement->fetchAll(PDO::FETCH_ASSOC);
             </td>
             
             <td>
-            <a href='cart.php?action=delete&id=<?=$i?>'>Retirer</a>
+            <a href='cart.php?action=delete&id=<?=$i?>'>Remove</a>
             </td>
             
         </tr>
@@ -64,12 +71,7 @@ $books = $statement->fetchAll(PDO::FETCH_ASSOC);
             } 
         }
     }
-
+}
     ?>
 </table>
-<?php
-    if (count($_SESSION['panier']['id_books']) < 1) {
-        echo "Votre panier est vide<br/><br/>";
-    }
-?>
-<a href='shop.php'>Retour</a>
+<a href='shop.php'>Back</a>
