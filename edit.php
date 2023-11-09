@@ -77,8 +77,7 @@ $bookEdit = $statement->fetchAll(PDO::FETCH_ASSOC);?>
     <br/><br/>
     <?php
     $idEdit = $_GET['identifiant'];
-    $statement = $pdo->query("SELECT * FROM library.author");
-    $authors = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $authors = getQuery('library.author');
     $statement = $pdo->prepare("SELECT a.idauthor FROM library.author a LEFT JOIN library.book b ON a.idauthor=b.idauthor WHERE b.idbook = :idEdit");
     $statement->bindValue(':idEdit', $idEdit, PDO::PARAM_INT);
     $statement->execute();
@@ -119,9 +118,8 @@ $bookEdit = $statement->fetchAll(PDO::FETCH_ASSOC);?>
     <br/>
     <input type='date' name='date_publication' value='<?php echo $bookEdit[0]['date_publication']?>' required>
     <br/><br/>
-    <?php $query="SELECT * FROM library.category";
-    $statement=$pdo->query($query);
-    $allCategories = $statement->fetchAll(PDO::FETCH_ASSOC);
+    <?php 
+    $allCategories = getQuery('library.category');
     $query="SELECT cb.idcategory AS id_category_cb FROM library.category c LEFT JOIN library.category_book cb ON c.idcategory = cb.idcategory WHERE cb.idbook = :editId";
     $statement = $pdo->prepare($query);
     $statement->bindValue(':editId', $id, PDO::PARAM_INT);

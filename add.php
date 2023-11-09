@@ -78,8 +78,7 @@
                         <option value=''>Choose the author</option>
                         <?php
                         
-                        $statement = $pdo->query("SELECT * FROM library.author");
-                        $authors = $statement->fetchAll(PDO::FETCH_ASSOC);
+                        $authors = getQuery('library.author');
                         foreach ($authors as $author) {
                             echo "<option value='" . $author['idauthor'] . "'>" . $author['firstname'] . " " . $author['lastname'] . "</option>";       
                     } ?>
@@ -96,9 +95,7 @@
     <fieldset style='width:30%'>
         <legend>Categories</legend>
         <?php
-        $query="SELECT * FROM library.category";
-        $statement=$pdo->query($query);
-        $allCategories = $statement->fetchAll(PDO::FETCH_ASSOC); 
+        $allCategories = getQuery('library.category'); 
         foreach ($allCategories as $onecategory) { 
                 echo "<div><input type='checkbox' id='categories' name='category[]' value='$onecategory[idcategory]'><label for='idcategories' >". $onecategory['name']. "</label></div>"; 
         }

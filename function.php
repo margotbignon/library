@@ -44,4 +44,23 @@ function deleteRow($table, $idDatabase, $id) {
     $array = $statement->fetchAll(PDO::FETCH_ASSOC); 
     return $array;
 }
+
+function getQuery($table) 
+{
+    $pdo = connect_bd();
+    $query="SELECT * FROM $table";
+    $statement=$pdo->query($query);
+    $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $array;
+}
+
+function insertInto2Param($table, $valueParam1, $valueParam2)
+{
+    $pdo = connect_bd();
+    $query = "INSERT INTO $table (firstname, lastname) VALUES (:param1, :param2)";
+    $statement = $pdo->prepare($query);
+    $statement->bindValue('param1', $valueParam1, PDO::PARAM_STR);
+    $statement->bindValue('param2', $valueParam2, PDO::PARAM_STR);
+    $statement->execute();
+}
 ?>

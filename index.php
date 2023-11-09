@@ -17,7 +17,6 @@ $pdo=connect_bd();
         <th style='background-color:#5472ae; color:white;'>Actions</th></tr>
 
             <?php 
-            
             if (!empty($_POST['search'])) {
             $search = $_POST['search'];   
             $statement=$pdo->prepare("SELECT library.b.*, library.a.firstname, library.a.lastname  FROM library.book b LEFT JOIN library.author a ON library.b.idauthor = library.a.idauthor WHERE b.title LIKE :search OR a.firstname LIKE :search OR a.lastname LIKE :search");
