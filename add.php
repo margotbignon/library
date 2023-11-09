@@ -104,6 +104,8 @@
         }
     ?>
     </fieldset>
+    <br/>
+    <a href="category.php?ref=add">Ajouter une catégorie</a>
     <br/><br/>
     <strong>Description</strong>
     <br/>

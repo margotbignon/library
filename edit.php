@@ -141,6 +141,9 @@ $bookEdit = $statement->fetchAll(PDO::FETCH_ASSOC);?>
         }
     }?>
     </fieldset>
+    <br/>
+    <a href="category.php?ref=modify&id=<?=$idEdit?>">Ajouter une catégorie</a>
+    
     <br/><br/>
     <strong>Description</strong>
     <br/>
@@ -149,4 +152,4 @@ $bookEdit = $statement->fetchAll(PDO::FETCH_ASSOC);?>
     <input type='submit' value='Save'>
     </form>
 
-    <a href='index.php'><br/><br/>Back</a>  
+    <a href='http://localhost:8000/index.php'><br/><br/>Back</a>  
