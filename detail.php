@@ -13,7 +13,7 @@
     $bookCategory = $book[0]['name'];
     $bookFirstnameAuthor = $book[0]['firstname'];
     $bookLastnameAuthor = $book[0]['lastname'];
-    $bookDescription = $book[0]['description_book']
+    $bookDescription = $book[0]['description_book'];
 ?>
 <h2>Details book <?php echo $bookTitle?></h2>
 <table style='border-collapse:collapse ; width:30%;'>
