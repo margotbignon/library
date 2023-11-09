@@ -16,14 +16,36 @@ $query = "SELECT library.b.*, library.a.firstname, library.a.lastname  FROM libr
 $statement = $pdo->query($query);
 $books = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-if ($statement->rowCount() > 0) {
-    foreach($books as $book) {
-        echo "Titre : " . $book['title'] . "<br/>Prix : " . $book['price'] . " €<br/>Auteur : " . $book['lastname'] . " " . $book['firstname'] .  
-    "<form action='cart.php' method='post'><input type='hidden' name='id_books' value='" . $book['idbook'] . "'>" . "<a href='cart.php'><input type='submit' value='Ajouter au panier'></a></form>" . "<br/><br>";
-     
-    }
-} else {
-    echo "0 results";
-}
 
 ?>
+
+<table style='margin-left:3em; width:40%; text-align:center'>
+<th>Titre</th>
+    <th>Prix</th>
+    <th>Auteur<th>
+<?php 
+    if ($statement->rowCount() > 0) {
+        foreach($books as $book) {
+?>
+    
+        <tr>
+            <td>
+                <?=$book['title']?>
+            </td>
+            <td>
+                <?=$book['price']?>
+            </td>
+            <td>
+                <?=$book['firstname']?> <?=$book['lastname']?>
+            </td>
+            <td>
+                <form action='cart.php' method='post'>
+                    <input type='hidden' name='id_books' value='<?=$book['idbook']?>'>
+                    <input type='submit' value='Ajouter au panier' style='margin-top:1.2em;'>
+                </form>
+            </td>
+            
+        </tr>
+    <?php }
+    } ?>
+</table>

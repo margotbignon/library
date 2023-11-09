@@ -5,6 +5,7 @@ if (!isset($_SESSION['name'])) {
     header('Location: login.php') ;
    
     die;
+
 } else {
     echo "Bienvenue " . $_SESSION['name'] . " ! <br/> <a href='logout.php'>Logout</a><br/><br/><br/>";
 }
@@ -32,27 +33,43 @@ $query = "SELECT * FROM library.book ";
 $statement = $pdo->query($query);
 $books = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-if ($statement->rowCount() > 0) {
-for ($i = 0; $i < count($_SESSION['panier']['id_books']); $i++) {
-        
-    foreach ($books as $book) {
-        if ($book['idbook'] == $_SESSION['panier']['id_books'][$i]){
-        echo $book['title']." ";
-        echo "<a href='cart.php?action=delete&id=$i'>Retirer</a>";
-        echo "<br/><br/>";
-        } 
-    }
-}
-}
-
-
-if (count($_SESSION['panier']['id_books']) < 1) {
-    echo "Votre panier est vide<br/><br/>";
-}
-
-
-
-echo "<br/><a href='shop.php'>Retour</a>";
-
 
 ?>
+<table style='margin-left:3em; width:40%; text-align:center'>
+<th>Titre</th>
+    <th>Prix</th>
+    
+<?php 
+    if ($statement->rowCount() > 0) {
+        for ($i = 0; $i < count($_SESSION['panier']['id_books']); $i++) {
+                
+            foreach ($books as $book) {
+                if ($book['idbook'] == $_SESSION['panier']['id_books'][$i]){
+?>
+ <tr>
+            <td>
+                <?=$book['title']?>
+            </td>
+            <td>
+                <?=$book['price']?>
+            </td>
+            
+            <td>
+            <a href='cart.php?action=delete&id=<?=$i?>'>Retirer</a>
+            </td>
+            
+        </tr>
+    <?php
+                }
+            } 
+        }
+    }
+
+    ?>
+</table>
+<?php
+    if (count($_SESSION['panier']['id_books']) < 1) {
+        echo "Votre panier est vide<br/><br/>";
+    }
+?>
+<a href='shop.php'>Retour</a>
