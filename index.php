@@ -4,6 +4,7 @@ $pdo=connect_bd();
 ?>
 
 <h2>Books list</h2>
+<p style='margin-left:7em; margin-bottom:-2em; font-weight:bold;'><a href='shop.php'>Shop</a></p><br/><br/>
 <p style='margin-left:7em; margin-bottom:-2em; font-weight:bold;'><a href='add.php'>Add a book</a></p><br/><br/>
 <p style='margin-left:7em; font-weight:bold;'>Search a book</p>
 <form method='post' style='margin-left:7em ;'>
@@ -20,8 +21,8 @@ $pdo=connect_bd();
             
             if (!empty($_POST['search'])) {
             $search = $_POST['search'];   
-            $statement=$pdo->prepare("SELECT library.b.*, library.a.firstname, library.a.lastname  FROM library.book b LEFT JOIN library.author a ON library.b.idauthor = library.a.idauthor WHERE b.title = :search");
-            $statement->bindValue(':search', $search, PDO::PARAM_STR);
+            $statement=$pdo->prepare("SELECT library.b.*, library.a.firstname, library.a.lastname  FROM library.book b LEFT JOIN library.author a ON library.b.idauthor = library.a.idauthor WHERE b.title LIKE :search OR a.firstname LIKE :search OR a.lastname LIKE :search");
+            $statement->bindValue(':search', '%'.$search.'%', PDO::PARAM_STR);
             $statement->execute();
             echo "<p style='margin-left:7em;'><a href='index.php'>Afficher la liste complète des livres</a>";
                 if($statement->rowcount() == 0) {
