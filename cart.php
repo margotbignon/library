@@ -28,7 +28,7 @@ if (!empty($_GET)) {
 }
 
 $_SESSION['panier']['id_books'] = array_values($_SESSION['panier']['id_books']);
-$pdo = connect_bd();
+$pdo = connectDB();
 $query = "SELECT * FROM library.book ";
 $statement = $pdo->query($query);
 $books = $statement->fetchAll(PDO::FETCH_ASSOC);

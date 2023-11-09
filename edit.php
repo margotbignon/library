@@ -1,30 +1,31 @@
 <?php 
-    include "header.php";
-    $id=$_GET['identifiant'];
-    $pdo = connect_bd();
-    if (!empty($_POST)) {
-        if ((strlen($_POST['title']) > 45) || (strlen($_POST['newauthorfirstname']) > 45) || (strlen($_POST['newauthorlastname']) > 45) || (empty($_POST['category']))  ){
-            if (strlen($_POST['title']) > 45) {
-            echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the title - Please re-type it</strong></p>";
-            }
-            if (strlen($_POST['newauthorfirstname']) > 45) {
-                echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the firstname author - Please re-type it</strong></p>";
-            }
-            if (strlen($_POST['newauthorlastname']) > 45) {
-                echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the lastname author - Please re-type it</strong></p>";
-            }
-            if (empty($_POST['category'])) {
-                echo "<br/><p style='color:red'><strong>Please choose at least one category.</strong></p>";
-            }
-        } else {
-            $title = $_POST["title"];
-            $price = $_POST['price'];
-            $date_publication = $_POST['date_publication'];
-            $idauthor = $_POST['author'];
-            $description_book = $_POST['description_book'];
-            $newAuthorfirstname = ($_POST['newauthorfirstname']);
-            $newAuthorlastname = ($_POST['newauthorlastname']);
-            if ($_POST['author'] != 0) {
+include "header.php";
+$id=$_GET['identifiant'];
+$pdo = connectDB();
+
+if (!empty($_POST)) {
+    if ((strlen($_POST['title']) > 45) || (strlen($_POST['newauthorfirstname']) > 45) || (strlen($_POST['newauthorlastname']) > 45) || (empty($_POST['category']))  ){
+        if (strlen($_POST['title']) > 45) {
+        echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the title - Please re-type it</strong></p>";
+        }
+        if (strlen($_POST['newauthorfirstname']) > 45) {
+            echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the firstname author - Please re-type it</strong></p>";
+        }
+        if (strlen($_POST['newauthorlastname']) > 45) {
+            echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the lastname author - Please re-type it</strong></p>";
+        }
+        if (empty($_POST['category'])) {
+            echo "<br/><p style='color:red'><strong>Please choose at least one category.</strong></p>";
+        }
+    } else { // All fields are valid
+        $title = $_POST["title"];
+        $price = $_POST['price'];
+        $date_publication = $_POST['date_publication'];
+        $idauthor = $_POST['author'];
+        $description_book = $_POST['description_book'];
+        $newAuthorfirstname = ($_POST['newauthorfirstname']);
+        $newAuthorlastname = ($_POST['newauthorlastname']);
+        if ($_POST['author'] != 0) {
             $query = "UPDATE library.book SET title = :title, price = :price, 
             date_publication = :date_publication, idauthor = :idauthor, description_book = :description_book 
             WHERE idbook = :editId";
@@ -36,31 +37,40 @@
             $statement->bindValue(':idauthor', $idauthor, PDO::PARAM_INT);
             $statement->bindValue(':description_book', $description_book, PDO::PARAM_STR);
             $statement->execute();
-            } else {
-                $query = "INSERT INTO library.author (firstname, lastname) VALUES (:firstname, :lastname)";
-                $statement = $pdo->prepare($query);
-                $statement->bindValue(':firstname', $newAuthorfirstname, PDO::PARAM_STR);
-                $statement->bindValue(':lastname', $newAuthorlastname, PDO::PARAM_STR);
-                $statement->execute();
-                $id_new = $pdo->lastInsertId();
-                $query = "UPDATE library.book SET idauthor = ". $id_new. " WHERE idbook = :editId ";
-                $statement = $pdo->prepare($query);
-                $statement->bindValue(':editId', $id);
-                $statement->execute();
-            }
+        } else {
+            $query = "INSERT INTO library.author (firstname, lastname) VALUES (:firstname, :lastname)";
+            $statement = $pdo->prepare($query);
+            $statement->bindValue(':firstname', $newAuthorfirstname, PDO::PARAM_STR);
+            $statement->bindValue(':lastname', $newAuthorlastname, PDO::PARAM_STR);
+            $statement->execute();
+            $idNew = $pdo->lastInsertId();
+            $query = "UPDATE library.book SET title = :title, price = :price, 
+            date_publication = :date_publication, idauthor = :idNew, description_book = :description_book WHERE idbook = :editId ";
+            $statement = $pdo->prepare($query);
+            $statement->bindValue(':title', $title, PDO::PARAM_STR);
+            $statement->bindValue(':price', $price);
+            $statement->bindValue(':date_publication', $date_publication, PDO::PARAM_STR);
+            $statement->bindValue(':idNew', $idNew);
+            $statement->bindValue(':description_book', $description_book, PDO::PARAM_STR);
+            $statement->bindValue(':editId', $id);
+            $statement->execute();
+        }
+
         if (isset($_POST['category'])) {   
             deleteRow('library.category_book', 'idbook', $id);
             $updateCategories = $_POST['category'];
             $i = 0;
             foreach ($updateCategories as $updateCategory) {
-            $statement = $pdo->prepare("INSERT INTO library.category_book (idbook, idcategory) VALUES (:editId, '".$updateCategories[$i]."')");
-            $statement->bindValue(':editId', $id, PDO::PARAM_INT);
-            $statement->execute();
-            $i++;
+                $statement = $pdo->prepare("INSERT INTO library.category_book (idbook, idcategory) VALUES (:editId, '".$updateCategories[$i]."')");
+                $statement->bindValue(':editId', $id, PDO::PARAM_INT);
+                $statement->execute();
+                $i++;
             }
         }
-      
+    
     } 
+    header('Location: index.php');
+                die; 
 }
 $query = "SELECT library.b.*, library.a.firstname, library.a.lastname  FROM library.book b LEFT JOIN library.author a ON library.b.idauthor = library.a.idauthor WHERE idbook = :editId";
 $statement = $pdo->prepare($query);

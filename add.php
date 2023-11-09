@@ -1,6 +1,6 @@
 <?php 
     include "header.php";
-    $pdo = connect_bd();
+    $pdo = connectDB();
         if (!empty($_POST)) {
             if ((strlen($_POST['title']) > 45) || (strlen($_POST['newauthorfirstname']) > 45) || (strlen($_POST['newauthorlastname']) > 45) || (empty($_POST['category'])) ){
                 if (strlen($_POST['title']) > 45) {

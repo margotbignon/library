@@ -16,7 +16,7 @@ if (isset($_SESSION['name'])) {
 echo "<a href='cart.php'>My cart</a><br/><br/>";
 
 
-$pdo = connect_bd();
+$pdo = connectDB();
 $query = "SELECT library.b.*, library.a.firstname, library.a.lastname  FROM library.book b LEFT JOIN library.author a ON library.b.idauthor = library.a.idauthor";
 $statement = $pdo->query($query);
 $books = $statement->fetchAll(PDO::FETCH_ASSOC);

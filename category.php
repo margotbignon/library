@@ -1,6 +1,6 @@
 <?php 
     include "header.php";
-    $pdo=connect_bd();
+    $pdo=connectDB();
     
     if (!empty($_POST)) {
     $name_category = $_POST['name_category'];

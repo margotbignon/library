@@ -1,6 +1,6 @@
 <?php 
 include "header.php";
-$pdo=connect_bd();
+$pdo=connectDB();
 ?>
 <p style='margin-left:7em; margin-bottom:-2em; font-weight:bold;'><a href='shop.php'>Shop</a></p><br/><br/>
 <h2>Books list</h2>

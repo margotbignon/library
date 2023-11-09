@@ -1,6 +1,6 @@
 <?php 
     include "header.php";
-    $pdo = connect_bd();
+    $pdo = connectDB();
     $id = $_GET['identifiant'];
     $query = "SELECT library.b.*, library.c.name, library.a.firstname, library.a.lastname, DATE_FORMAT (date_publication, '%d/%m/%Y') as date_fr FROM library.book b LEFT JOIN library.category_book cb ON library.b.idbook = library.cb.idbook LEFT JOIN library.category c ON library.cb.idcategory = library.c.idcategory LEFT JOIN library.author a ON library.b.idauthor = library.a.idauthor WHERE library.b.idbook = :myId";
     $statement = $pdo->prepare($query);
