@@ -19,19 +19,19 @@
 <table style='border-collapse:collapse ; width:30%;'>
     <tr>
         <td style='border:1px solid white; padding:1em; background-color:#5472ae; color:white;'>Title</td>
-        <td style='border:1px solid blue; padding:1em;'><?php echo $bookTitle?></td>
+        <td style='border:1px solid blue; padding:1em;'><?=$bookTitle?></td>
     </tr>
     <tr>
         <td style='border:1px solid white; padding:1em;background-color:#5472ae; color:white;'>Price</td>
-        <td style='border:1px solid blue;padding:1em;'><?php echo $bookPrice?> €</td>
+        <td style='border:1px solid blue;padding:1em;'><?=$bookPrice?> €</td>
     </tr>
     <tr>
         <td style='border:1px solid white; padding:1em;background-color:#5472ae; color:white;'>Publication date</td>
-        <td style='border:1px solid blue;padding:1em;'><?php echo $bookDatePublication?></td>
+        <td style='border:1px solid blue;padding:1em;'><?=$bookDatePublication?></td>
     </tr>
     <tr>
         <td style='border:1px solid white; padding:1em;background-color:#5472ae; color:white;'>Author</td>
-        <td style='border:1px solid blue;padding:1em;'><?php echo $bookFirstnameAuthor . " " . $bookLastnameAuthor?></td>
+        <td style='border:1px solid blue;padding:1em;'><?=$bookFirstnameAuthor . " " . $bookLastnameAuthor?></td>
     </tr>
 
         <?php $query = "SELECT library.c.name FROM library.category c LEFT JOIN library.category_book cb ON c.idcategory = cb.idcategory LEFT JOIN library.book b ON cb.idbook = b.idbook WHERE library.cb.idbook = :myId";
@@ -52,7 +52,7 @@
 ?>
     <tr>
         <td style='border:1px solid white; padding:1em;background-color:#5472ae; color:white;'>Description</td>
-        <td style='border:1px solid blue;padding:1em;'><?php echo $bookDescription?></td>
+        <td style='border:1px solid blue;padding:1em;'><?=$bookDescription?></td>
     </tr>
 </table>
 <a href='index.php'><br/><br/>Back</a>

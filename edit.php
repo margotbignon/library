@@ -72,11 +72,11 @@ if (!empty($_POST)) {
     header('Location: index.php');
                 die; 
 }
-$query = "SELECT library.b.*, library.a.firstname, library.a.lastname  FROM library.book b LEFT JOIN library.author a ON library.b.idauthor = library.a.idauthor WHERE idbook = :editId";
-$statement = $pdo->prepare($query);
-$statement->bindValue(':editId', $id, PDO::PARAM_INT);
-$statement->execute();
-$bookEdit = $statement->fetchAll(PDO::FETCH_ASSOC);?>
+    $query = "SELECT library.b.*, library.a.firstname, library.a.lastname  FROM library.book b LEFT JOIN library.author a ON library.b.idauthor = library.a.idauthor WHERE idbook = :editId";
+    $statement = $pdo->prepare($query);
+    $statement->bindValue(':editId', $id, PDO::PARAM_INT);
+    $statement->execute();
+    $bookEdit = $statement->fetchAll(PDO::FETCH_ASSOC);?>
 
 <h2>Book Modification <?php echo $bookEdit[0]['title'] ?> </h2>
 </br>
@@ -86,12 +86,12 @@ $bookEdit = $statement->fetchAll(PDO::FETCH_ASSOC);?>
     <input type='text' name='title' value="<?php echo $bookEdit[0]['title'] ?>" required>
     <br/><br/>
     <?php
-    $idEdit = $_GET['identifiant'];
-    $authors = getQuery('library.author', 'library.author.lastname');
-    $statement = $pdo->prepare("SELECT a.idauthor FROM library.author a LEFT JOIN library.book b ON a.idauthor=b.idauthor WHERE b.idbook = :idEdit");
-    $statement->bindValue(':idEdit', $idEdit, PDO::PARAM_INT);
-    $statement->execute();
-    $checkAuthors = $statement->fetchAll(PDO::FETCH_ASSOC);?>
+        $idEdit = $_GET['identifiant'];
+        $authors = getQuery('library.author', 'library.author.lastname');
+        $statement = $pdo->prepare("SELECT a.idauthor FROM library.author a LEFT JOIN library.book b ON a.idauthor=b.idauthor WHERE b.idbook = :idEdit");
+        $statement->bindValue(':idEdit', $idEdit, PDO::PARAM_INT);
+        $statement->execute();
+        $checkAuthors = $statement->fetchAll(PDO::FETCH_ASSOC);?>
     <table>
         <tr>
             <th style='text-align:left;'><strong>Author</strong></th>
@@ -122,11 +122,11 @@ $bookEdit = $statement->fetchAll(PDO::FETCH_ASSOC);?>
     <br/>
     <strong>Price</strong>
     <br/>
-    <input type='number' step="0.01" name='price' value='<?php echo $bookEdit[0]['price']?>' required>
+    <input type='number' step="0.01" name='price' value='<?=$bookEdit[0]['price']?>' required>
     <br/><br/>
     <strong>Publication date</strong>
     <br/>
-    <input type='date' name='date_publication' value='<?php echo $bookEdit[0]['date_publication']?>' required>
+    <input type='date' name='date_publication' value='<?=$bookEdit[0]['date_publication']?>' required>
     <br/><br/>
     <?php 
     $allCategories = getQuery('library.category', 'library.category.name');

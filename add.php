@@ -4,7 +4,7 @@
         if (!empty($_POST)) {
             if ((strlen($_POST['title']) > 45) || (strlen($_POST['newauthorfirstname']) > 45) || (strlen($_POST['newauthorlastname']) > 45) || (empty($_POST['category'])) ){
                 if (strlen($_POST['title']) > 45) {
-                echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the title - Please re-type it</strong></p>";
+                    echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the title - Please re-type it</strong></p>";
                 }
                 if (strlen($_POST['newauthorfirstname']) > 45) {
                     echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the firstname author - Please re-type it</strong></p>";
@@ -23,30 +23,30 @@
                 $description_book = ($_POST['description_book']);
                 $newAuthorfirstname = ($_POST['newauthorfirstname']);
                 $newAuthorlastname = ($_POST['newauthorlastname']);
-                if ($idauthor != 0) {
-                    $query = "INSERT INTO library.book (title, price, date_publication, idauthor, description_book) VALUES (:title, :price, :date_publication, :idauthor, :description_book)";
-                    $statement = $pdo->prepare($query);
-                    $statement->bindValue(':title', $title);
-                    $statement->bindValue(':price', $price);
-                    $statement->bindValue(':date_publication', $date_publication);
-                    $statement->bindValue(':idauthor', $idauthor);
-                    $statement->bindValue(':description_book', $description_book);
-                    $statement->execute();
-                } else {
-                    $query = "INSERT INTO library.author (firstname, lastname) VALUES (:firstname, :lastname)";
-                    $statement = $pdo->prepare($query);
-                    $statement->bindValue(':firstname', $newAuthorfirstname, PDO::PARAM_STR);
-                    $statement->bindValue(':lastname', $newAuthorlastname, PDO::PARAM_STR);
-                    $statement->execute();
-                    $idNewAuthor = $pdo->lastInsertId();
-                    $query = "INSERT INTO library.book (title, price, date_publication, idauthor) VALUES (:title, :price, :date_publication, :idauthor)";
-                    $statement = $pdo->prepare($query);
-                    $statement->bindValue(':title', $title);
-                    $statement->bindValue(':price', $price);
-                    $statement->bindValue(':date_publication', $date_publication);
-                    $statement->bindValue(':idauthor', $idNewAuthor);
-                    $statement->execute();
-                }
+                    if ($idauthor != 0) {
+                        $query = "INSERT INTO library.book (title, price, date_publication, idauthor, description_book) VALUES (:title, :price, :date_publication, :idauthor, :description_book)";
+                        $statement = $pdo->prepare($query);
+                        $statement->bindValue(':title', $title);
+                        $statement->bindValue(':price', $price);
+                        $statement->bindValue(':date_publication', $date_publication);
+                        $statement->bindValue(':idauthor', $idauthor);
+                        $statement->bindValue(':description_book', $description_book);
+                        $statement->execute();
+                    } else {
+                        $query = "INSERT INTO library.author (firstname, lastname) VALUES (:firstname, :lastname)";
+                        $statement = $pdo->prepare($query);
+                        $statement->bindValue(':firstname', $newAuthorfirstname, PDO::PARAM_STR);
+                        $statement->bindValue(':lastname', $newAuthorlastname, PDO::PARAM_STR);
+                        $statement->execute();
+                        $idNewAuthor = $pdo->lastInsertId();
+                        $query = "INSERT INTO library.book (title, price, date_publication, idauthor) VALUES (:title, :price, :date_publication, :idauthor)";
+                        $statement = $pdo->prepare($query);
+                        $statement->bindValue(':title', $title);
+                        $statement->bindValue(':price', $price);
+                        $statement->bindValue(':date_publication', $date_publication);
+                        $statement->bindValue(':idauthor', $idNewAuthor);
+                        $statement->execute();
+                    }
                 $categories = ($_POST['category']);
                 $idNewbook = $pdo->lastInsertId();
                 foreach ($categories as $category) {
@@ -108,7 +108,7 @@
     <br/>
     <textarea id="description_book" name="description_book" maxlength="100"></textarea>
     <br/><br/>
-<input type='submit' value='Save'>
+    <input type='submit' value='Save'>
 </form>
 <a href='index.php'><br/><br/>Back</a>  
        
