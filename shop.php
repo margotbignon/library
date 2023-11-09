@@ -4,13 +4,14 @@ include "function.php";
 session_start();
 if (isset($_SESSION['name'])) {
     echo "Welcome " . $_SESSION['name'] . " !<br/> <a href='logout.php'>Logout</a><br/><br/>";
+    if ($_SESSION['name'] === 'mbignon@gmail.com') {
+        echo "<a href='index.php'>Admin</a><br/><br/>";
+    }
 } else {
     echo "<a href='login.php'>Login</a> <br/><br/><br/>";
 }
 
-if ($_SESSION['name'] === 'mbignon@gmail.com') {
-    echo "<a href='index.php'>Admin</a><br/><br/>";
-}
+
 
 echo "<a href='cart.php'>My cart</a><br/><br/>";
 
