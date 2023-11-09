@@ -78,7 +78,7 @@
                         <option value=''>Choose the author</option>
                         <?php
                         
-                        $authors = getQuery('library.author');
+                        $authors = getQuery('library.author', 'library.author.lastname');
                         foreach ($authors as $author) {
                             echo "<option value='" . $author['idauthor'] . "'>" . $author['firstname'] . " " . $author['lastname'] . "</option>";       
                     } ?>
@@ -95,7 +95,7 @@
     <fieldset style='width:30%'>
         <legend>Categories</legend>
         <?php
-        $allCategories = getQuery('library.category'); 
+        $allCategories = getQuery('library.category', 'library.category.name'); 
         foreach ($allCategories as $onecategory) { 
                 echo "<div><input type='checkbox' id='categories' name='category[]' value='$onecategory[idcategory]'><label for='idcategories' >". $onecategory['name']. "</label></div>"; 
         }

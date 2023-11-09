@@ -45,10 +45,10 @@ function deleteRow($table, $idDatabase, $id) {
     return $array;
 }
 
-function getQuery($table) 
+function getQuery($table, $column) 
 {
     $pdo = connectDB();
-    $query="SELECT * FROM $table";
+    $query="SELECT * FROM $table ORDER BY $column ASC";
     $statement=$pdo->query($query);
     $array = $statement->fetchAll(PDO::FETCH_ASSOC);
     return $array;
