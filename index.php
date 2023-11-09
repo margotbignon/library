@@ -3,17 +3,17 @@ include "header.php";
 $pdo=connect_bd();
 ?>
 
-<h2> Liste des livres</h2>
-<p style='margin-left:7em; margin-bottom:-2em; font-weight:bold;'><a href='add.php'>Ajouter un livre</a></p><br/><br/>
-<p style='margin-left:7em; font-weight:bold;'>Rechercher un livre</p>
+<h2>Books list</h2>
+<p style='margin-left:7em; margin-bottom:-2em; font-weight:bold;'><a href='add.php'>Add a book</a></p><br/><br/>
+<p style='margin-left:7em; font-weight:bold;'>Search a book</p>
 <form method='post' style='margin-left:7em ;'>
-    <input type="text" name="search" id="search"><input type="submit" value="Rechercher">
+    <input type="text" name="search" id="search"><input type="submit" value="Search">
 </form>
 
 <table style='border-collapse: collapse; width:60% ; margin-left:7em; margin-top:3em';>
     <tr>
-        <th style='background-color:#5472ae; color:white; padding:1em;'>Titre du livre</th>
-        <th style='background-color:#5472ae; color:white; padding:1em;'>Auteur</th>
+        <th style='background-color:#5472ae; color:white; padding:1em;'>Title</th>
+        <th style='background-color:#5472ae; color:white; padding:1em;'>Author</th>
         <th style='background-color:#5472ae; color:white;'>Actions</th></tr>
 
             <?php 
@@ -39,9 +39,9 @@ $pdo=connect_bd();
                 <td style='text-align:center; border:1px solid blue;'><?php echo $bookproduct['title']?></td>
                 <td style='text-align:center; border:1px solid blue;'><?php echo $bookproduct['firstname']. " ". $bookproduct['lastname']?></td>
                 <td style='text-align:center; border:1px solid blue; padding:1em;'>
-                <a href='detail.php?identifiant=<?php echo $bookproduct['idbook']?>'>Détail</a><br/>
-                <a href='edit.php?identifiant=<?php echo $bookproduct['idbook']?>'>Modifier</a><br/>
-                <a href='delete.php?identifiant=<?php echo $bookproduct['idbook']?>'>Supprimer</a><td>
+                <a href='detail.php?identifiant=<?php echo $bookproduct['idbook']?>'>Detail</a><br/>
+                <a href='edit.php?identifiant=<?php echo $bookproduct['idbook']?>'>Modify</a><br/>
+                <a href='delete.php?identifiant=<?php echo $bookproduct['idbook']?>'>Delete</a><td>
             </tr>
         <?php } ?>
 

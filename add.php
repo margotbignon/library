@@ -1,18 +1,19 @@
 <?php 
-    $pdo = new \PDO('mysql:host=localhost;dbname=library', 'root', '');
+    include "header.php";
+    $pdo = connect_bd();
         if (!empty($_POST)) {
             if ((strlen($_POST['title']) > 45) || (strlen($_POST['newauthorfirstname']) > 45) || (strlen($_POST['newauthorlastname']) > 45) || (empty($_POST['category'])) ){
                 if (strlen($_POST['title']) > 45) {
-                echo "<br/><p style='color:red'><strong>Ne pas dépasser 45 caractères pour le titre - Veuillez le ressaisir</strong></p>";
+                echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the title - Please re-type it</strong></p>";
                 }
                 if (strlen($_POST['newauthorfirstname']) > 45) {
-                    echo "<br/><p style='color:red'><strong>Ne pas dépasser 45 caractères pour le prénom de l'auteur - Veuillez le ressaisir</strong></p>";
+                    echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the firstname author - Please re-type it</strong></p>";
                 }
                 if (strlen($_POST['newauthorlastname']) > 45) {
-                    echo "<br/><p style='color:red'><strong>Ne pas dépasser 45 caractères pour le nom de l'auteur - Veuillez le ressaisir</strong></p>";
+                    echo "<br/><p style='color:red'><strong>Do not exceed 45 characters for the lastname author - Please re-type it</strong></p>";
                 }
                 if (empty($_POST['category'])) {
-                    echo "<br/><p style='color:red'><strong>Veuillez choisir au moins une catégorie.</strong></p>";
+                    echo "<br/><p style='color:red'><strong>Please choose at least one category.</strong></p>";
                 }
             } else {
                 $title = trim($_POST["title"]);
@@ -62,19 +63,19 @@
 ?>
 
     
-<h2>Ajout d'un livre</h2></br></br>
+<h2>Add a book</h2></br></br>
 <form method='post' style='margin-left:3em';>
-    <strong>Titre</strong> <br/> <input type="text" name="title"/>
+    <strong>Title</strong> <br/> <input type="text" name="title"/>
     <br/><br/>
         <table>
             <tr>
-                <th style='text-align:left;'><strong>Auteur</strong></th>
-                <th style='text-align:left;'>Prénom Nouvel Auteur</th>
-                <th style='text-align:left;'>Nom Nouvel Auteur</th></tr> 
+                <th style='text-align:left;'><strong>Author</strong></th>
+                <th style='text-align:left;'>Firstname New Author</th>
+                <th style='text-align:left;'>LastName New Author</th></tr> 
             <tr>
                 <td>
                     <select id='author' name='author'>
-                        <option value=''>Choisissez votre auteur</option>
+                        <option value=''>Choose the author</option>
                         <?php
                         
                         $statement = $pdo->query("SELECT * FROM library.author");
@@ -82,18 +83,18 @@
                         foreach ($authors as $author) {
                             echo "<option value='" . $author['idauthor'] . "'>" . $author['firstname'] . " " . $author['lastname'] . "</option>";       
                     } ?>
-                        <option value='0'> -- Nouvel auteur --  </option></select></td>
+                        <option value='0'> -- New author --  </option></select></td>
                         <td><input type='text' name='newauthorfirstname'></td>
                         <td><input type="text" name="newauthorlastname"></td>
             </tr>
         </table>
     <br/>
-    <strong>Prix</strong> <br/> <input type='number' step="0.01" name='price' required>
+    <strong>Price</strong> <br/> <input type='number' step="0.01" name='price' required>
     <br/><br/>
-    <strong>Date de publication</strong> <br/> <input type="date" name="date_publication" required>
+    <strong>Publication date</strong> <br/> <input type="date" name="date_publication" required>
     <br/><br/>
     <fieldset style='width:30%'>
-        <legend>Catégories</legend>
+        <legend>Categories</legend>
         <?php
         $query="SELECT * FROM library.category";
         $statement=$pdo->query($query);
@@ -108,8 +109,8 @@
     <br/>
     <textarea id="description_book" name="description_book" maxlength="100"></textarea>
     <br/><br/>
-<input type='submit' value='Enregistrer'>
+<input type='submit' value='Save'>
 </form>
-<a href='index.php'><br/><br/>Retour</a>  
+<a href='index.php'><br/><br/>Back</a>  
        
    
