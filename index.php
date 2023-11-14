@@ -40,7 +40,7 @@ $pdo=connectDB();
                 <td style='text-align:center; border:1px solid blue;'><?=$bookproduct['firstname']. " ". $bookproduct['lastname']?></td>
                 <td style='text-align:center; border:1px solid blue; padding:1em;'>
                 <a href='detail.php?identifiant=<?=$bookproduct['idbook']?>'>Detail</a><br/>
-                <a href='edit.php?identifiant=<?=$bookproduct['idbook']?>'>Modify</a><br/>
+                <a href='edit.php?identifiant=<?=$bookproduct['idbook']?>'>Modifyy</a><br/>
                 <a href='delete.php?identifiant=<?=$bookproduct['idbook']?>'>Delete</a><td>
             </tr>
         <?php } ?>
